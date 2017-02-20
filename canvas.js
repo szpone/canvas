@@ -8,3 +8,22 @@ function draw() {
 }
 
 draw();
+
+function gradientColor(x) {
+    return Math.round(255 / WIDTH * x);
+}
+
+function drawGradient() {
+    var canvas = document.querySelector("#canvas");
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgb(255, 255, 255)';
+    for (x = 0; x < 500 ; x++) {
+        var col = gradientColor(x);
+        ctx.fillStyle = 'rgb(' + col + ', ' + col + ', ' + col + ')';
+        ctx.fillRect(x, 0, 1, 500);
+    }
+
+
+}
+
+drawGradient();
