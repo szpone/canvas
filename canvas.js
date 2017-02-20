@@ -1,6 +1,7 @@
 var WIDTH = 500, HEIGHT = 500;
 var canvas = document.querySelector("#canvas");
 var ctx = canvas.getContext('2d');
+var intervalId = null;
 
 function fillCanvas(color) {
     ctx.fillStyle = color;
@@ -50,21 +51,35 @@ function drawAnimatedRect() {
 function drawFireworks() {
     var xm = 0.5 * WIDTH;
     var ym = 0.5 * HEIGHT;
-    var sparks = [
-        { x: xm, y: ym, dx: 5, dy: 5},
-        { x: xm, y: ym, dx: -5, dy: 5},
-        { x: xm, y: ym, dx: 0, dy: 5},
-        { x: xm, y: ym, dx: -5, dy: 0},
-        { x: xm, y: ym, dx: 5, dy: 0},
-        { x: xm, y: ym, dx: 5, dy: -5},
-        { x: xm, y: ym, dx: -5, dy: -5},
-        { x: xm, y: ym, dx: 0, dy: -5},
-    ];
+    var nSparks = 500;
+    // var sparks = [
+    //     { x: xm, y: ym, dx: 5, dy: 5},
+    //     { x: xm, y: ym, dx: -5, dy: 5},
+    //     { x: xm, y: ym, dx: 0, dy: 5},
+    //     { x: xm, y: ym, dx: -5, dy: 0},
+    //     { x: xm, y: ym, dx: 5, dy: 0},
+    //     { x: xm, y: ym, dx: 5, dy: -5},
+    //     { x: xm, y: ym, dx: -5, dy: -5},
+    //     { x: xm, y: ym, dx: 0, dy: -5},
+    // ];
+    var sparks = [];
+    for (var i = 0; i < nSparks; i++) {
+        var alpha = Math.random() * 2 * Math.PI;
+        var radius = Math.random() * 10;
+        var dx = Math.sin(alpha);
+        var dy = Math.cos(alpha);
+
+        var spark = {x: xm, y: ym, dx: dx * radius, dy: dy * radius};
+        sparks.push(spark);
+    }
 
     fillCanvas('rgb(0, 0, 0)');
     ctx.strokeStyle = 'rgb(255, 255, 0)';
     var fps = 30;
-    var intervalId = setInterval(drawFrame, 1000 / fps);
+    if (intervalId !== null) {
+        clearInterval(intervalId);
+    }
+    intervalId = setInterval(drawFrame, 1000 / fps);
 
     function drawFrame() {
         fillCanvas('rgb(0, 0, 0)');
