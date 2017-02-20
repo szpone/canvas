@@ -21,3 +21,34 @@ function drawGradient() {
         ctx.fillRect(x, 0, 1, HEIGHT);
     }
 }
+
+function drawAnimatedRect() {
+    var canvas = document.querySelector("#canvas");
+    var ctx = canvas.getContext('2d');
+
+    var fps = 30;
+    var intervalId = setInterval(drawFrame, 1000 / fps);
+    // clearInterval(intervalId);
+
+    var x = 30;
+    var y = 30;
+    var w = 50;
+    var h = 50;
+
+    function drawFrame() {
+        var canvas = document.querySelector("#canvas");
+        var ctx = canvas.getContext('2d');
+        x += 5;
+        y += 5;
+        if (x >= WIDTH - w && y >= HEIGHT - h) {
+            clearInterval(intervalId);
+        }
+
+        ctx.fillStyle = 'rgb(255, 255, 255)';
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        ctx.fillStyle = 'rgb(128, 128, 128)';
+        ctx.fillRect(x, y, w, h);
+    }
+}
+
+
