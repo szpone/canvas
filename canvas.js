@@ -52,16 +52,6 @@ function drawFireworks() {
     var xm = 0.5 * WIDTH;
     var ym = 0.5 * HEIGHT;
     var nSparks = 500;
-    // var sparks = [
-    //     { x: xm, y: ym, dx: 5, dy: 5},
-    //     { x: xm, y: ym, dx: -5, dy: 5},
-    //     { x: xm, y: ym, dx: 0, dy: 5},
-    //     { x: xm, y: ym, dx: -5, dy: 0},
-    //     { x: xm, y: ym, dx: 5, dy: 0},
-    //     { x: xm, y: ym, dx: 5, dy: -5},
-    //     { x: xm, y: ym, dx: -5, dy: -5},
-    //     { x: xm, y: ym, dx: 0, dy: -5},
-    // ];
     var sparks = [];
     for (var i = 0; i < nSparks; i++) {
         var alpha = Math.random() * 2 * Math.PI;
@@ -84,6 +74,7 @@ function drawFireworks() {
     function drawFrame() {
         fillCanvas('rgb(0, 0, 0)');
         for (var i = 0; i < sparks.length; i++) {
+            sparks[i].dy += 0.2;
             sparks[i].x += sparks[i].dx;
             sparks[i].y += sparks[i].dy;
         }
