@@ -7,8 +7,6 @@ function draw() {
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-draw();
-
 function gradientColor(x) {
     return Math.round(255 / WIDTH * x);
 }
@@ -17,13 +15,9 @@ function drawGradient() {
     var canvas = document.querySelector("#canvas");
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = 'rgb(255, 255, 255)';
-    for (x = 0; x < 500 ; x++) {
+    for (x = 0; x < WIDTH ; x++) {
         var col = gradientColor(x);
         ctx.fillStyle = 'rgb(' + col + ', ' + col + ', ' + col + ')';
-        ctx.fillRect(x, 0, 1, 500);
+        ctx.fillRect(x, 0, 1, HEIGHT);
     }
-
-
 }
-
-drawGradient();
