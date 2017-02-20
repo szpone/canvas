@@ -48,26 +48,40 @@ function drawAnimatedRect() {
 }
 
 function drawFireworks() {
-    var xm = 0.5 * WIDTH
-    var ym = 0.5 * HEIGHT
+    var xm = 0.5 * WIDTH;
+    var ym = 0.5 * HEIGHT;
     var sparks = [
-        { x1: xm, y1: ym, x2: xm + 50, y2: ym + 50 },
-        { x1: xm, y1: ym, x2: xm - 50, y2: ym + 50 },
-        { x1: xm, y1: ym, x2: xm, y2: ym + 50},
-        { x1: xm, y1: ym, x2: xm - 50, y2: ym},
-        { x1: xm, y1: ym, x2: xm + 50, y2: ym},
-        { x1: xm, y1: ym, x2: xm + 50, y2: ym - 50 },
-        { x1: xm, y1: ym, x2: xm - 50, y2: ym - 50 },
-        { x1: xm, y1: ym, x2: xm , y2: ym - 50 },
+        { x1: xm, y1: ym, x2: xm + 50, y2: ym + 50, dx: 5, dy: 5},
+        { x1: xm, y1: ym, x2: xm - 50, y2: ym + 50, dx: -5, dy: 5},
+        { x1: xm, y1: ym, x2: xm, y2: ym + 50, dx: 0, dy: 5},
+        { x1: xm, y1: ym, x2: xm - 50, y2: ym, dx: -5, dy: 0},
+        { x1: xm, y1: ym, x2: xm + 50, y2: ym, dx: 5, dy: 0},
+        { x1: xm, y1: ym, x2: xm + 50, y2: ym - 50, dx: 5, dy: -5},
+        { x1: xm, y1: ym, x2: xm - 50, y2: ym - 50, dx: -5, dy: -5},
+        { x1: xm, y1: ym, x2: xm , y2: ym - 50, dx: 0, dy: -5},
     ];
 
     fillCanvas('rgb(0, 0, 0)');
     ctx.strokeStyle = 'rgb(255, 255, 0)';
-    for (var i = 0 ; i < sparks.length ; i++) {
-        ctx.beginPath();
-        ctx.moveTo(0.5 * WIDTH, 0.5 * HEIGHT);
-        ctx.lineTo(sparks[i].x2, sparks[i].y2)
-        ctx.stroke();
+    var fps = 30;
+    var intervalId = setInterval(drawFrame, 1000 / fps);
+
+    function drawFrame() {
+        fillCanvas('rgb(0, 0, 0)');
+        for (var i = 0; i < sparks.length; i++) {
+            sparks[i].x1 += sparks[i].dx;
+            sparks[i].y1 += sparks[i].dy;
+            sparks[i].x2 += sparks[i].dx;
+            sparks[i].y2 += sparks[i].dy;
+        }
+
+        for (var i = 0; i < sparks.length; i++) {
+            ctx.beginPath();
+            ctx.moveTo(sparks[i].x1, sparks[i].y1);
+            ctx.lineTo(sparks[i].x2, sparks[i].y2);
+            ctx.stroke();
+        }
     }
 
 }
+
